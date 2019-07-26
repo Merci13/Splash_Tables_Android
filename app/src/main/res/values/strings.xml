@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Splash_Table</string>
+    <string name="button1">Botón_1</string>
+    <string name="text1">Hola Josue</string>
+    <string name="text2">Escribe Algo</string>
+
+
 </resources>
