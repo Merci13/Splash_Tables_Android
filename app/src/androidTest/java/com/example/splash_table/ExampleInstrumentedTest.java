@@ -1,6 +1,7 @@
 package com.example.splash_table;
 
 import android.content.Context;
+
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
