@@ -3,6 +3,9 @@
     <string name="button1">Botón_1</string>
     <string name="text1">Hola Josue</string>
     <string name="text2">Escribe Algo</string>
+    <string name="welcome">Bienvenidos</string>
+    <string name="descripciondelicono">Icono del programa</string>
+
 
 
 </resources>
