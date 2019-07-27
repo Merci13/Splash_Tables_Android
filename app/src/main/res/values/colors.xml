@@ -5,5 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="blanco">#ffffff</color>
     <color name="background">#34173F</color>
+    <color name="celeste">#227CEB</color>
+    <color name="verdeClaro">#22E164</color>
 
 </resources>
