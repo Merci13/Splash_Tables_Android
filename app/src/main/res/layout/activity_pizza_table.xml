@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".PizzaTable">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="177dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/pizza"
+        android:textSize="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/pizza" />
 </androidx.constraintlayout.widget.ConstraintLayout>

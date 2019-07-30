@@ -31,9 +31,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
 
+    /**
+     * Metodo para lanzar el activity pizza
+     * @param v
+     */
     public void onClickPizzaVentana(View v){
-        Intent intent = new Intent(this,PizzaTable);
-        startActivity(intent);
+        Intent ventanaPizza= new Intent(this,PizzaTable.class);
+        startActivity(ventanaPizza);
 
 
 
