@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     public void onClickPizzaVentana(View v){
         Intent ventanaPizza= new Intent(this,PizzaTable.class);
-        startActivity(ventanaPizza);
+        startActivityForResult(ventanaPizza,1);
 
 
 
