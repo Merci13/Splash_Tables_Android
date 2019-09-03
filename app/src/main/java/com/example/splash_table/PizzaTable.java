@@ -16,7 +16,7 @@ public class PizzaTable extends AppCompatActivity {
 
     RadioGroup radioGroup;
     RadioButton radioButton;
-    List orden = new ArrayList();
+   private Pedido orden = new Pedido();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +37,16 @@ public class PizzaTable extends AppCompatActivity {
         String name = ((EditText)findViewById(R.id.nombre_pizza)).getText().toString();
         String apellido = ((EditText)findViewById(R.id.apellido_pizza)).getText().toString();
         String opcionPizza="Tipo de Pizza "+radioButton.getText();
-            //se crea una lista con los datos recogidos
-
-        orden.add(name);
-        orden.add(apellido);
-        orden.add(opcionPizza);
+        //se crea una lista con los datos recogidos
+        orden.setName(name);
+        orden.setApellido(apellido);
+        orden.setTamanno(opcionPizza);
 
         //devolver los datos al activity principal.
         Intent result_pizza = new Intent();
-        result_pizza.putExtra(name:"orden",orden);
-        setResult(RESULT_OK);
+        result_pizza.putExtra("orden", orden);
+
+        setResult(RESULT_OK,result_pizza);
         finish();
 
 

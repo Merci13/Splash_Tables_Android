@@ -1,19 +1,27 @@
 package com.example.splash_table;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class HomeActivity extends AppCompatActivity {
 
     public String[] tiqueteAvion= new String[5];
     public List tiquete_de_avion = new ArrayList();
+    private Pedido orden = new Pedido();
+
+
     /*
      * Nombre
      * Apellido
@@ -21,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
      * Hora de salida
      * lugar de destino
      * */
-    public List pizza = new ArrayList();
+    public List <Pedido> pizza = new ArrayList<Pedido>();
 
 
 
@@ -41,9 +49,20 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data.getParcelableExtra("orden") != null){
+            Pedido ordenPizza = data.getParcelableExtra("orden");
+            pizza.add(ordenPizza);
+            Log.d("Test", pizza.toString());
+        }
 
+    }
     /**
     * Crear una nueva vista con una serie de inputs para que el usuario llene el pedido de pizza
      * debe tener
