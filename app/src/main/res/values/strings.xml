@@ -9,7 +9,7 @@
         la opcion del boton verde es para reservar un boleto de avion.
         la opcion del boton celeste es para
         ordenar una pizza</string>
-   //Strings comunes
+    //Strings comunes
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="telf">Número Telefónico</string>
@@ -20,7 +20,7 @@
     <string name="pizza">Pizza</string>
     <string name="tamannoPizza">Tamaño de la pizza</string>
     <string name="costo">Costo de la pizza</string>
-   <string name="direecion">Direccion</string>
+    <string name="direecion">Direccion</string>
     <string name="tamannoGrande">Grande</string>
     <string name="tamannoMediano">Mediano</string>
     <string name="tamannoPequenno">Pequeño</string>
