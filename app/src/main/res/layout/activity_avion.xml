@@ -6,4 +6,129 @@
     android:layout_height="match_parent"
     tools:context=".Avion">
 
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/appCompatAutoCompleteTextView"
+        android:layout_width="164dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/nombre"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatCheckedTextView" />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/appCompatCheckedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Por favor rellenar con la informacion solicitada"
+        android:textSize="40px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatMultiAutoCompleteTextView" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/nombre_tickete"
+        android:layout_width="166dp"
+        android:layout_height="36dp"
+
+        android:layout_marginTop="48dp"
+        android:hint="Nombre"
+        android:textSize="40px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toEndOf="@+id/appCompatAutoCompleteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatCheckedTextView" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/apellido_tickete"
+        android:layout_width="158dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
+        android:hint="Apellido"
+        android:textSize="40px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_tickete" />
+
+    <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
+        android:id="@+id/appCompatMultiAutoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="Tickete de Avion"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="100px"
+        app:layout_constraintBottom_toTopOf="@+id/appCompatCheckedTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
+        android:layout_width="112dp"
+        android:layout_height="106dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Numero de Personas"
+        android:textSize="40px"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
+        android:layout_width="138dp"
+
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/apellido"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatAutoCompleteTextView" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="140dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
+        app:layout_constraintTop_toBottomOf="@+id/apellido_tickete"
+
+
+        >
+
+        <RadioButton
+            android:id="@+id/unaPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 Persona"
+            android:textSize="40px"
+
+            />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

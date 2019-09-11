@@ -3,7 +3,7 @@ package com.example.splash_table;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Tickete implements Parcel {
+public class Tickete implements Parcelable {
     private String name;
     private String apellido;
     private int numeroCedula;
@@ -24,6 +24,40 @@ public class Tickete implements Parcel {
     }
 
 //-------Getters and Setters ---------//
+
+    protected Tickete(Parcel in) {
+        name = in.readString();
+        apellido = in.readString();
+        numeroCedula = in.readInt();
+        paisOrigen = in.readString();
+        paisDestino = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(apellido);
+        dest.writeInt(numeroCedula);
+        dest.writeString(paisOrigen);
+        dest.writeString(paisDestino);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Tickete> CREATOR = new Creator<Tickete>() {
+        @Override
+        public Tickete createFromParcel(Parcel in) {
+            return new Tickete(in);
+        }
+
+        @Override
+        public Tickete[] newArray(int size) {
+            return new Tickete[size];
+        }
+    };
 
     public String getName(){
         return name;
@@ -81,28 +115,6 @@ public class Tickete implements Parcel {
 
 //------Implementacion de parcelable--------//
 
-    //no lleva override
-    public void readFromParcel(Parcel in){
-        name = in.readString();
-        apellido = in.readString();
-        numeroCedula = in.readInt();
-        paisOrigen = in.readString();
-        paisDestino = in.readString();
-
-    }
-
-//----Metodo Creator-----//
-    public static final Parcelable.Creator<Tickete>CREATOR = new Parcelable.Creator<Tickete>() {
-    @Override
-    public Tickete createFromParcel(Parcel parcel) {
-        return new Tickete();
-    }
-
-    @Override
-    public Tickete[] newArray(int size) {
-        return new Tickete[size];
-    }
-    };
 
 
 }//fin de la progra
