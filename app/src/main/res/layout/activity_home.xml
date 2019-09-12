@@ -33,6 +33,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/verdeClaro"
+        android:onClick="onClickAvionVentana"
         android:text="@string/avion"
         android:textColor="@color/blanco"
         app:layout_constraintBottom_toBottomOf="parent"

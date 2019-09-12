@@ -7,30 +7,30 @@ public class Tickete implements Parcelable {
     private String name;
     private String apellido;
     private int numeroCedula;
-    private String paisOrigen;
-    private String paisDestino;
+    private  String cantidadPersonas;
+
 
     //constructor vacio
     public Tickete(){
     }
 
     //constructor
-    public Tickete(String name, String apellido, int numeroCedula, String paisOrigen, String paisDestino){
+    public Tickete(String name, String apellido, int numeroCedula,String cantidadPersonas ){
         this.name = name;
         this.apellido = apellido;
         this.numeroCedula = numeroCedula;
-        this.paisOrigen = paisOrigen;
-        this.paisDestino = paisDestino;
+        this.cantidadPersonas = cantidadPersonas;
+
     }
 
-//-------Getters and Setters ---------//
 
+//------Implementacion de parcelable--------//
     protected Tickete(Parcel in) {
         name = in.readString();
         apellido = in.readString();
         numeroCedula = in.readInt();
-        paisOrigen = in.readString();
-        paisDestino = in.readString();
+        cantidadPersonas = in.readString();
+
     }
 
     @Override
@@ -38,8 +38,8 @@ public class Tickete implements Parcelable {
         dest.writeString(name);
         dest.writeString(apellido);
         dest.writeInt(numeroCedula);
-        dest.writeString(paisOrigen);
-        dest.writeString(paisDestino);
+        dest.writeString(cantidadPersonas);
+
     }
 
     @Override
@@ -58,48 +58,40 @@ public class Tickete implements Parcelable {
             return new Tickete[size];
         }
     };
-
-    public String getName(){
+    //-------Getters and Setters ---------//
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getApellido(){
+    public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido){
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
-    public int getNumeroCedula(){
+    public int getNumeroCedula() {
         return numeroCedula;
     }
 
-    public void setNumeroCedula(int numeroCedula){
+    public void setNumeroCedula(int numeroCedula) {
         this.numeroCedula = numeroCedula;
     }
 
-    public String getPaisOrigen(){
-        return paisOrigen;
+    public String getCantidadPersonas() {
+        return cantidadPersonas;
     }
 
-    public void setPaisOrigen(String paisOrigen){
-        this.paisOrigen = paisOrigen;
+    public void setCantidadPersonas(String cantidadPersonas) {
+        this.cantidadPersonas = cantidadPersonas;
     }
 
-    public String getPaisDestino(){
-        return paisDestino;
-    }
-
-    public void setPaisDestino(String paisDestino){
-        this.paisDestino = paisDestino;
-    }
-
-//------toString -------// falta por terminar el to String
+    //------toString -------// falta por terminar el to String
 
     @Override
     public String toString() {
@@ -107,13 +99,12 @@ public class Tickete implements Parcelable {
                 "name='" + name + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", numeroCedula=" + numeroCedula +
-                ", paisOrigen='" + paisOrigen + '\'' +
-                ", paisDestino='" + paisDestino + '\'' +
+                ", cantidadPersonas='" + cantidadPersonas + '\'' +
                 '}';
     }
 
 
-//------Implementacion de parcelable--------//
+
 
 
 

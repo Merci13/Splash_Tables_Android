@@ -30,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
      * lugar de destino
      * */
     public List <Pedido> pizza = new ArrayList<Pedido>();
+    public  List<Tickete> ticketes = new ArrayList<>();
 
 
 
@@ -47,10 +48,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent ventanaPizza= new Intent(this,PizzaTable.class);
         startActivityForResult(ventanaPizza,1);
 
-
-
-
-
     }
 
     @Override
@@ -63,14 +60,26 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
-    /**
-    * Crear una nueva vista con una serie de inputs para que el usuario llene el pedido de pizza
-     * debe tener
-     * Nombre, Apellido, Direccion, numero de slices y mostrar el precio segun el tamanno de la
-     * pizza
-     * ademas, tiene que mostrarle una serie de sabores a escojer, ya se
-     * Suprema, Jamon y hongos o Hauawana
-    */
+    /***
+     * Metodo para lanzar el activity de avion
+     * @param v
+     */
+
+    public void onClickAvionVentana(View v){
+        Intent ventatanAvion = new Intent(this,Avion.class);
+        startActivityForResult(ventatanAvion,1);
+    }
+
+    protected void onActivityResultAvion(int requestCode,int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data.getParcelableExtra("tickete") != null){
+            Tickete ticketeAvion = data.getParcelableExtra("tickete");
+            ticketes.add(ticketeAvion);
+            Log.d("TestAvion",ticketes.toString());
+
+        }
+    }
+
 
 
 }
