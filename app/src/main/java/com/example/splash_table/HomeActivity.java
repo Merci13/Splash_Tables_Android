@@ -57,29 +57,26 @@ public class HomeActivity extends AppCompatActivity {
             Pedido ordenPizza = data.getParcelableExtra("orden");
             pizza.add(ordenPizza);
             Log.d("Test", pizza.toString());
-        }
-
-    }
-    /***
-     * Metodo para lanzar el activity de avion
-     * @param v
-     */
-
-    public void onClickAvionVentana(View v){
-        Intent ventatanAvion = new Intent(this,Avion.class);
-        startActivityForResult(ventatanAvion,1);
-    }
-
-    protected void onActivityResultAvion(int requestCode,int resultCode, @Nullable Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data.getParcelableExtra("tickete") != null){
+        }else if (requestCode == 2 && resultCode == RESULT_OK && data.getParcelableExtra("tickete") != null) {
             Tickete ticketeAvion = data.getParcelableExtra("tickete");
             ticketes.add(ticketeAvion);
             Log.d("TestAvion",ticketes.toString());
 
+            }
         }
+
+
+    /***
+     * Metodo para lanzar el activity de avion
+     * @param v
+     */
+    public void onClickAvionVentana(View v){
+        Intent ventatanAvion = new Intent(this,Avion.class);
+        startActivityForResult(ventatanAvion,2);
     }
 
 
 
-}
+
+
+}//Fin de la progra
