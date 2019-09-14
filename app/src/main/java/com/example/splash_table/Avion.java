@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Process;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -22,13 +23,15 @@ public class Avion extends AppCompatActivity{
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private EditText editTextNumeroCedula;
-    private EditText  editTextNombre = findViewById(R.id.nombre_tickete);
-    private EditText editTextApellido = findViewById(R.id.apellido_tickete);
+    private EditText  editTextNombre;
+    private EditText editTextApellido;
     private Tickete tickete = new Tickete();
+    private myTexttwatcher myTexttwatcher;
     private int segundosSinUso = 15;//define el tiempo en el que no se usa la aplicacion inicia
                                     // el conteo apenas se abre el activity
 
     private Handler mainHandler = new Handler();
+    ExampleThread thread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +44,18 @@ public class Avion extends AppCompatActivity{
         //selecciono el radio id de que esta seleccionado en la vista
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
-
-
+        editTextNombre = findViewById(R.id.nombre_tickete);
+        editTextApellido = findViewById(R.id.apellido_tickete);
         editTextNumeroCedula = findViewById(R.id.numeroDeCedula);
+        myTexttwatcher = new myTexttwatcher();
+        editTextNombre.addTextChangedListener(myTexttwatcher);
+        editTextApellido.addTextChangedListener(myTexttwatcher);
+        editTextNumeroCedula.addTextChangedListener(myTexttwatcher);
+
+
+
+        thread = new ExampleThread(segundosSinUso);
+        thread.start();
 
     }
 
@@ -92,90 +104,111 @@ public class Avion extends AppCompatActivity{
            toast.show();
        }
 
-       public void empiezaConteoAtras(View v){
-       /* for (int i = 0; i<segundosSinUso; i++){
-            try {
-                Thread.sleep(1000);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
 
-        }*/
 
-       ExampleThread thread = new ExampleThread(segundosSinUso);
-       thread.start();
-
-       }
 
        class ExampleThread extends Thread{
         int segundosSinUso;
         ExampleThread(int segundosSinUso){
             this.segundosSinUso = segundosSinUso;
         }
+         int conteo = 0;
         @Override
            public  void run(){
 
-            boolean used = true;
-            for (int i = 0; i<segundosSinUso; i++){
+            while(conteo != segundosSinUso+1){
                 //llamar a un metodo para asegurarse de que la IU esta en uso
-                used = enUso();
-                if (used){
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                }
-
                 try {
                     Thread.sleep(1000);
+                    String impresionSegundos = "segundos: "+ conteo;
+                    Log.d("Tracer",impresionSegundos);
+                    if(conteo == segundosSinUso){
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                    finish();//cierra el activity y se devuelve a la ventana home
+                            }
+                        });
+                    }
+                        conteo++;
+
+
+
+
+
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
 
             }
+
+
+
         }
        }
 
-       public boolean enUso(){
-          boolean enUso = true;//variable a devolver
-
-           /*
-           * se comprueban cambios en los editText
-           * */
-           editTextNombre.addTextChangedListener(editTextCambios);
-           editTextApellido.addTextChangedListener(editTextCambios);
-           editTextNumeroCedula.addTextChangedListener(editTextCambios);
 
 
+            /**
+             * clase modificado que implementa el TextWatcher
+             * */
 
-        return enUso;
-       }
-       private  TextWatcher editTextCambios = new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+         private class myTexttwatcher implements  TextWatcher {
+             private boolean enUso;
 
-           }
+             myTexttwatcher(){
 
-
-           /**
-            * Metodo que vigila los cambios que se estan realizando en el momento
-            *
-            * */
-
-           @Override
-           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //cambiar el buleano enUso a true, porque se estan usando y detener el temporizador
-           }
-
-           @Override
-           public void afterTextChanged(Editable editable) {
-
-           }
-       };
+             }
+             myTexttwatcher(boolean enUso){
+                 this.enUso = enUso;
+             }
 
 
+             /*                                *
+              * Inicia el hilo cuando se deja de usar
+              *
+              * */
+             @Override
+             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                thread.conteo = 0;
+             }
+
+
+             /**
+              * Metodo que vigila los cambios que se estan realizando en el momento
+              */
+
+             @Override
+             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                 //cambiar el buleano enUso a true, porque se estan usando y detener el temporizador
+                 thread.conteo = 0;
+             }
+
+             /*                                *
+              * Inicia el hilo cuando se deja de usar
+              *
+              * */
+             @Override
+             public void afterTextChanged(Editable editable) {
+                 thread.conteo = 0;
+             }
+
+             public boolean isEnUso() {
+                 return enUso;
+             }
+
+             public void setEnUso(boolean enUso) {
+                 this.enUso = enUso;
+             }
+
+             @Override
+             public String toString() {
+                 return "myTexttwatcher{" +
+                         "enUso=" + enUso +
+                         '}';
+             }
+         }
 
 
 
