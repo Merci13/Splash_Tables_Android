@@ -2,12 +2,16 @@ package com.example.splash_table;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +30,13 @@ public class PizzaTable extends AppCompatActivity {
         radioButton = findViewById(radioId);
         setTitle("Pizza");
 
-
-
-
     }
 
-
+    /***
+     * Metodo para recoger los datos de los textedit junto de los del radio button
+     * despues los retorna al homeactivity para su procesamiento
+     * @param v
+     */
     public void onclik_Pizza_data( View v){
         //se recogen los datos de la ventana
         String name = ((EditText)findViewById(R.id.nombre_pizza)).getText().toString();
@@ -51,7 +56,11 @@ public class PizzaTable extends AppCompatActivity {
 
 
     }
-//temporizador de uso
-    //si llega a 0 cerrar la ventana y no guardar los datos.
+//Crear un servicio que:
+    //Verfique si los edtitext estan en uso
+    // Si no estan en uso iniciar un temporizador
+    // iniciar el temporizador apenas se entre en la ventana
+    //cerrar el activity si el temporizador llega a su limite.
+
 
 }
