@@ -56,11 +56,27 @@ public class PizzaTable extends AppCompatActivity {
 
 
     }
-//Crear un servicio que:
+    Intent serviceIntent;
+    private static final int RSS_JOB_ID = 1000;
+
+
+    //Crear un servicio que:
     //Verfique si los edtitext estan en uso
     // Si no estan en uso iniciar un temporizador
     // iniciar el temporizador apenas se entre en la ventana
     //cerrar el activity si el temporizador llega a su limite.
+
+
+    private void startService(){
+        serviceIntent = new Intent();
+        //poner como extra el contador del cronometro
+      // serviceIntent.putExtra();
+
+
+        TestService.enqueueWork(this, TestService.class, RSS_JOB_ID, serviceIntent);
+    }
+
+
 
 
 }

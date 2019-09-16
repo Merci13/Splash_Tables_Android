@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -55,6 +57,22 @@ public class TestService extends IntentService {
         context.startService(intent);
     }
 
+    /***
+     * Metodo para poner en fila los llamados al service
+     * @param context el contexto donde me encuentro, que seria el activity que hace el llamado
+     * @param testServiceClass el servicio a utilizar, que seria este servicio
+     * @param rss_job_id id de la solicitud del servicio
+     * @param serviceIntent intent es por donde viaja la informacion de y hacia el servicio
+     */
+    public static void enqueueWork(Context context, Class<TestService> testServiceClass, int rss_job_id, Intent serviceIntent) {
+        enqueueWork(context, testServiceClass, rss_job_id, serviceIntent);
+    }
+
+
+    /***
+     * Metodo para manejar los intents que llegan por solicitudes
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
@@ -88,4 +106,7 @@ public class TestService extends IntentService {
         // TODO: Handle action Baz
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    Intent localIntent = new Intent(Constants.BROADCAST_ACTION).putExtra(Constants.EXTENDED_DATA_STATUS, status);
+    LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
 }
