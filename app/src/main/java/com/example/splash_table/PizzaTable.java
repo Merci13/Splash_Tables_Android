@@ -3,6 +3,8 @@ package com.example.splash_table;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.IntentService;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaTable extends AppCompatActivity {
+    public final int CONSTANTE_CONTEO = 15;
 
     RadioGroup radioGroup;
     RadioButton radioButton;
@@ -56,8 +59,6 @@ public class PizzaTable extends AppCompatActivity {
 
 
     }
-    Intent serviceIntent;
-    private static final int RSS_JOB_ID = 1000;
 
 
     //Crear un servicio que:
@@ -66,15 +67,21 @@ public class PizzaTable extends AppCompatActivity {
     // iniciar el temporizador apenas se entre en la ventana
     //cerrar el activity si el temporizador llega a su limite.
 
+public void startService(View v){
+       //llama al servicio para que inicie el conteo hacia atras desde la constante
+        // que esta arriba
+    Intent serviceIntent = new Intent(this,TestService.class);
+    serviceIntent.putExtra("Contador", CONSTANTE_CONTEO);
+    startService(serviceIntent);
 
-    private void startService(){
-        serviceIntent = new Intent();
-        //poner como extra el contador del cronometro
-      // serviceIntent.putExtra();
 
+}
 
-        TestService.enqueueWork(this, TestService.class, RSS_JOB_ID, serviceIntent);
-    }
+public void stopService(View v){
+    Intent serviceIntent = new Intent(this,TestService.class);
+    stopService(serviceIntent);
+
+}
 
 
 
