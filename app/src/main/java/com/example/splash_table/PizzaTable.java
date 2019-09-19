@@ -1,11 +1,13 @@
 package com.example.splash_table;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,7 +25,8 @@ public class PizzaTable extends AppCompatActivity {
 
     RadioGroup radioGroup;
     RadioButton radioButton;
-   private Pedido orden = new Pedido();
+    private Pedido orden = new Pedido();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +43,11 @@ public class PizzaTable extends AppCompatActivity {
      * despues los retorna al homeactivity para su procesamiento
      * @param v
      */
-    public void onclik_Pizza_data( View v){
+    public void onclik_Pizza_data(View v) {
         //se recogen los datos de la ventana
-        String name = ((EditText)findViewById(R.id.nombre_pizza)).getText().toString();
-        String apellido = ((EditText)findViewById(R.id.apellido_pizza)).getText().toString();
-        String opcionPizza="Tipo de Pizza "+radioButton.getText();
+        String name = ((EditText) findViewById(R.id.nombre_pizza)).getText().toString();
+        String apellido = ((EditText) findViewById(R.id.apellido_pizza)).getText().toString();
+        String opcionPizza = "Tipo de Pizza " + radioButton.getText();
         //se crea una lista con los datos recogidos
         orden.setName(name);
         orden.setApellido(apellido);
@@ -54,7 +57,7 @@ public class PizzaTable extends AppCompatActivity {
         Intent result_pizza = new Intent();
         result_pizza.putExtra("orden", orden);
 
-        setResult(RESULT_OK,result_pizza);
+        setResult(RESULT_OK, result_pizza);
         finish();
 
 
@@ -67,23 +70,45 @@ public class PizzaTable extends AppCompatActivity {
     // iniciar el temporizador apenas se entre en la ventana
     //cerrar el activity si el temporizador llega a su limite.
 
-public void startService(View v){
-       //llama al servicio para que inicie el conteo hacia atras desde la constante
+    public void startService() {
+        //llama al servicio para que inicie el conteo hacia atras desde la constante
         // que esta arriba
-    Intent serviceIntent = new Intent(this,TestService.class);
-    serviceIntent.putExtra("Contador", CONSTANTE_CONTEO);
-    startService(serviceIntent);
+        Intent serviceIntent = new Intent(this, TestService.class);
+        serviceIntent.putExtra("Contador", CONSTANTE_CONTEO);
+        startService(serviceIntent);
 
 
-}
+    }
 
-public void stopService(View v){
-    Intent serviceIntent = new Intent(this,TestService.class);
-    stopService(serviceIntent);
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, TestService.class);
+        stopService(serviceIntent);
 
-}
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startService();
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("NOW"));
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopService();
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean finish = intent.getBooleanExtra("finish", false);  //get the type of message from MyGcmListenerService 1 - lock or 0 -Unlock
+
+            if (finish)
+                finish();
+        }
+    };
 
 
 }

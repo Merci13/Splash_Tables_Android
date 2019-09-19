@@ -31,6 +31,11 @@ public class TestService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Intent in = new Intent();
+        in.putExtra("finish",true);
+        in.setAction("NOW");
+//sendBroadcast(in);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(in);
        int contador = Integer.parseInt(intent.getStringExtra("Contador"));
 
        Intent notificatioIntent = new Intent(this,PizzaTable.class);
@@ -57,6 +62,7 @@ public class TestService extends Service {
                     //cierra el activity y detener el service
 
                     //detiene el service
+
                     stopSelf();
 
                 }
