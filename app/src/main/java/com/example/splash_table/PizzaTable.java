@@ -11,6 +11,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -26,6 +28,9 @@ public class PizzaTable extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButton;
     private Pedido orden = new Pedido();
+    EditText nombrePizza;
+    EditText apellidoPizza;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,13 @@ public class PizzaTable extends AppCompatActivity {
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         setTitle("Pizza");
+        startService();
+        nombrePizza = findViewById(R.id.nombre_pizza);
+        apellidoPizza = findViewById(R.id.apellido_pizza);
+
+        //agregar los TextWatcher
+        nombrePizza.addTextChangedListener(new myTexttwatcher());
+        apellidoPizza.addTextChangedListener(new myTexttwatcher());
 
     }
 
@@ -90,14 +102,14 @@ public class PizzaTable extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         startService();
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("NOW"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("FINISH"));
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         stopService();
-        unregisterReceiver(broadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        super.onStop();
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -109,6 +121,70 @@ public class PizzaTable extends AppCompatActivity {
                 finish();
         }
     };
+
+
+    //--------------Metodos para el textWatcher----------------//
+
+    private class myTexttwatcher implements TextWatcher {
+        private boolean enUso;
+
+        myTexttwatcher(){
+
+        }
+        myTexttwatcher(boolean enUso){
+            this.enUso = enUso;
+        }
+
+
+        /*                                *
+         * Inicia el hilo cuando se deja de usar
+         *
+         * */
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+        }
+
+
+        /**
+         * Metodo que vigila los cambios que se estan realizando en el momento
+         */
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            //cambiar el buleano enUso a true, porque se estan usando y detener el temporizador
+            Intent in = new Intent();
+            in.putExtra("counter",15);
+            in.setAction("RESET_COUNTER");
+            //sendBroadcast(in);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(in);
+        }
+
+        /*                                *
+         * Inicia el hilo cuando se deja de usar
+         *
+         * */
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+
+        public boolean isEnUso() {
+            return enUso;
+        }
+
+        public void setEnUso(boolean enUso) {
+            this.enUso = enUso;
+        }
+
+        @Override
+        public String toString() {
+            return "myTexttwatcher{" +
+                    "enUso=" + enUso +
+                    '}';
+        }
+    }
 
 
 }
